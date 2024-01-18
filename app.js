@@ -24,8 +24,8 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: 'ferisworld@outlook.com',
-    pass: 'feris@2218',
+    user: '',
+    pass: '',
   },
 });
 

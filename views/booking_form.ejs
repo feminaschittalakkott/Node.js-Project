@@ -9,55 +9,61 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
 </head>
 <body>
-    
     <div class="form-container">
         <h2 class="text-center mb-2 mt-2">Training Booking Form</h2>
         <br>
         <form action="/submit_booking" method="post">
+            <!-- Existing fields for main user -->
             <div class="row">
-                <div class="col-md-6 col-lg-12">
+                <div class="col-md-6 col-lg-6">
                     <label for="name" class="form-label">Name:</label>
                     <input type="text" id="name" name="name" class="form-control" required>
                 </div>
-                <div class="col-md-6 col-lg-12">
+                <div class="col-md-6 col-lg-6">
                     <label for="email" class="form-label">Email:</label>
                     <input type="email" id="email" name="email" class="form-control" required>
                 </div>
             </div>
-    
             <div class="row">
-                <div class="col-md-6 col-lg-12">
+                <div class="col-md-6 col-lg-6">
                     <label for="designation" class="form-label">Designation:</label>
                     <input type="text" id="designation" name="designation" class="form-control" required>
                 </div>
-                <div class="col-md-6 col-lg-12">
+                <div class="col-md-6 col-lg-6">
                     <label for="company" class="form-label">Company:</label>
                     <input type="text" id="company" name="company" class="form-control">
                 </div>
             </div>
-    
+
             <div class="row">
-                <div class="col-md-6 col-lg-12">
-                    <label for="course" class="form-label">Preferred Training:</label>
+                <div class="col-md-6 col-lg-6">
+                    <label for="course" class="form-label">Preferred Course:</label>
                     <select name="course" id="course" class="form-select" required>
                         <option value="0">-Select-</option>
                         <% courses.forEach(course => { %>
-                            <option value="<%= course.course_id %>"><%= course.course_name %></option>
+                        <option value="<%= course.course_id %>"><%= course.course_name %></option>
                         <% }) %>
                     </select>
                 </div>
             </div>
-    
+
             <div class="row">
-                <div class="col-md-6 col-lg-12">
+                <div class="col-md-6 col-lg-6">
                     <label for="date" class="form-label">Training Date:</label>
                     <input type="text" id="date" name="date" class="form-control datepicker" required>
                 </div>
-                <div class="col-md-6 col-lg-12">
+                <div class="col-md-6 col-lg-6">
                     <label for="time" class="form-label">Training Time:</label>
                     <input type="time" id="time" name="time" class="form-control" required>
                 </div>
             </div>
+
+            <!-- Fields for delegate information -->
+            <div id="delegateFields">
+                <!-- Delegate fields will be added dynamically here -->
+            </div>
+            <button type="button" onclick="addDelegate()">Add Delegate</button>
+
             <br>
             <div class="row">
                 <div class="col-md-12 col-lg-12 text-end">
@@ -66,16 +72,44 @@
             </div>
         </form>
     </div>
-</body>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        $('#date').datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true,
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            $('#date').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+            });
         });
-    });
-</script>
+
+        function addDelegate() {
+            var delegateFieldsContainer = document.getElementById('delegateFields');
+
+            // Create div to hold delegate fields
+            var delegateDiv = document.createElement('div');
+            delegateDiv.className = 'row';
+
+            // Add input fields for delegate name, email, and contact
+            delegateDiv.innerHTML = `
+                <div class="col-md-6 col-lg-4">
+                    <label for="delegateName" class="form-label">Delegate Name:</label>
+                    <input type="text" name="delegateName[]" class="form-control" required>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <label for="delegateEmail" class="form-label">Delegate Email:</label>
+                    <input type="email" name="delegateEmail[]" class="form-control" required>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <label for="delegateContact" class="form-label">Delegate Contact:</label>
+                    <input type="text" name="delegateContact[]" class="form-control" required>
+                </div>
+            `;
+
+            // Append the delegate div to the container
+            delegateFieldsContainer.appendChild(delegateDiv);
+        }
+    </script>
+</body>
 </html>

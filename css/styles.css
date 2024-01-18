@@ -22,10 +22,10 @@ body {
 }
 
 .form-container {
-  width: 600px;
+  width: 1000px;
   margin: 0 auto;
   height: auto;
-  max-height: 800px;
+  max-height: 660px;
   font-size: 12px;
   margin-top: 1%;
   background-color: #fff;

@@ -13,23 +13,29 @@
     </style>
 </head>
 <body>
+    <%- include('navbar.ejs', { currentPage: 'booking_details' }) %>
     <div class="form-container">
         <div class="text-center"><h3>Bookings</h3></div>
         <br>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Name</th>
+                    <th scope="col">Company</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Course</th>
                     </tr>
             </thead>
             <tbody>
                 <% bookings.forEach(booking => { %>
                     <tr>
-                        <td><a href="#"><%= booking.name %></a></td>
+                        <td><%= booking.co_name %></td>
+                        <td><%= booking.address %></td>
+                        <td></td>
                     </tr>
                 <% }) %>
             </tbody>
         </table>
+        <a href="/">Back</a>
     </div>
 </body>
 </html>

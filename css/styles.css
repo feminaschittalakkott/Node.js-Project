@@ -5,6 +5,28 @@ body {
   background-color: #f5f5f5;
   overflow: hidden;
 }
+.navbar {
+  background-color: #007bff;
+  padding: 10px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+  color: #fff;
+}
+
+.navbar-brand:hover, .navbar-nav .nav-link:hover {
+  color: #ffd700;
+}
+/* Active state for navbar items */
+.navbar-nav .nav-item.active {
+  background-color: #0056b3;
+  border-radius: 3px;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+  color: #fff !important;
+}
 
 .container {
   width: 600px;
@@ -17,7 +39,7 @@ body {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transform: translateY(-100%);
-  animation: slideIn 2s ease-in-out forwards;
+  animation: slideIn 1s ease-in-out forwards;
   overflow-y: hidden;
 }
 
@@ -75,7 +97,7 @@ input[type="date"],
 input[type="time"],
 select {
   width: 100%;
-  padding: 6px;
+  padding: 2px;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-sizing: border-box;
@@ -90,6 +112,50 @@ button[type="submit"] {
   border-radius: 3px;
   cursor: pointer;
   border: #333;
+}
+
+/* Styling for delegate information div */
+#delegateFields {
+  background-color: #f0f8ff; /* Light Blue */
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#delegateFields label {
+  color: #333;
+}
+
+#delegateFields input,
+#delegateFields select {
+  background-color: #fff;
+  border: 1px solid #999;
+  border-radius: 3px;
+}
+
+.add-delegate-btn {
+  margin-top: 2px;
+  font-size: 12px;
+  padding: 3px 6px;
+  width: 60px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.add-delegate-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Adjusted styling for responsiveness */
+@media (max-width: 768px) {
+  .add-delegate-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
 }
 
 /* Additional styling */

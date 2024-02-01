@@ -9,34 +9,37 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
 </head>
 <body>
+    <%- include('navbar.ejs', { currentPage: 'booking_form' }) %>
     <div class="form-container">
         <h2 class="text-center mb-2 mt-2">Training Booking Form</h2>
         <br>
         <form action="/submit_booking" method="post">
             <!-- Existing fields for main user -->
             <div class="row">
-                <div class="col-md-6 col-lg-6">
-                    <label for="name" class="form-label">Name:</label>
-                    <input type="text" id="name" name="name" class="form-control" required>
+                <div class="col-md-4 col-lg-4">
+                    <label for="co_name" class="form-label">Company Name:</label>
+                    <input type="text" id="co_name" name="co_name" class="form-control" required>
                 </div>
-                <div class="col-md-6 col-lg-6">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" id="email" name="email" class="form-control" required>
+                <div class="col-md-4 col-lg-4">
+                    <label for="co_email" class="form-label">Company Email:</label>
+                    <input type="text" id="co_email" name="co_email" class="form-control" required>
+                </div>
+                <div class="col-md-4 col-lg-4">
+                    <label for="phone" class="form-label">Phone:</label>
+                    <input type="text" id="phone" name="phone" class="form-control" required>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 col-lg-6">
-                    <label for="designation" class="form-label">Designation:</label>
-                    <input type="text" id="designation" name="designation" class="form-control" required>
+                <div class="col-md-4 col-lg-4">
+                    <label for="date" class="form-label">Date:</label>
+                    <input type="text" id="date" name="date" class="form-control date" required>
                 </div>
-                <div class="col-md-6 col-lg-6">
-                    <label for="company" class="form-label">Company:</label>
-                    <input type="text" id="company" name="company" class="form-control">
+                <div class="col-md-4 col-lg-4">
+                    <label for="address" class="form-label">Address:</label>
+                    <!-- <input type="text" id="designation" name="designation" class="form-control" required> -->
+                    <textarea class="form-control" name="address" id="address" cols="30" style="height: 10px;"></textarea>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 col-lg-6">
+                <div class="col-md-4 col-lg-4">
                     <label for="course" class="form-label">Preferred Course:</label>
                     <select name="course" id="course" class="form-select" required>
                         <option value="0">-Select-</option>
@@ -48,21 +51,44 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 col-lg-6">
-                    <label for="date" class="form-label">Training Date:</label>
-                    <input type="text" id="date" name="date" class="form-control datepicker" required>
+                <div class="col-md-4 col-lg-4">
+                    <label for="t_date" class="form-label">Training Date:</label>
+                    <input type="text" id="t_date" name="t_date" class="form-control date" required>
                 </div>
-                <div class="col-md-6 col-lg-6">
-                    <label for="time" class="form-label">Training Time:</label>
-                    <input type="time" id="time" name="time" class="form-control" required>
+                <div class="col-md-4 col-lg-4">
+                    <label for="coursedur" class="form-label">Course Dur:</label>
+                    <input type="text" id="designation" name="coursedur" class="form-control" required>
+                </div>
+                <div class="col-md-4 col-lg-4">
+                    <label for="noofattendee" class="form-label">No of Attendees:</label>
+                    <input type="text" id="designation" name="noofattendee" class="form-control" required>
+                </div>
+                <div class="col-md-4 col-lg-4">
+                    <label for="costper" class="form-label">Cost per Attendee:</label>
+                    <input type="text" id="costper" name="costper" class="form-control" required>
                 </div>
             </div>
 
             <!-- Fields for delegate information -->
             <div id="delegateFields">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <label for="delegateName" class="form-label">Delegate Name:</label>
+                        <input type="text" name="delegateName[]" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <label for="delegateEmail" class="form-label">Email:</label>
+                        <input type="email" name="delegateEmail[]" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <label for="delegateContact" class="form-label">Contact:</label>
+                        <input type="text" name="delegateContact[]" class="form-control" required>
+                    </div>
+                </div>
                 <!-- Delegate fields will be added dynamically here -->
             </div>
-            <button type="button" onclick="addDelegate()">Add Delegate</button>
+            <button type="button" onclick="addDelegate()" class="add-delegate-btn">Add</button>
+            <button type="button" onclick="removeDelegate(this)" class="add-delegate-btn">Remove</button>
 
             <br>
             <div class="row">
@@ -78,7 +104,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            $('#date').datepicker({
+            $('.date').datepicker({
                 format: 'yyyy-mm-dd',
                 autoclose: true,
             });
@@ -98,11 +124,11 @@
                     <input type="text" name="delegateName[]" class="form-control" required>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <label for="delegateEmail" class="form-label">Delegate Email:</label>
+                    <label for="delegateEmail" class="form-label">Email:</label>
                     <input type="email" name="delegateEmail[]" class="form-control" required>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <label for="delegateContact" class="form-label">Delegate Contact:</label>
+                    <label for="delegateContact" class="form-label">Contact:</label>
                     <input type="text" name="delegateContact[]" class="form-control" required>
                 </div>
             `;
@@ -110,6 +136,16 @@
             // Append the delegate div to the container
             delegateFieldsContainer.appendChild(delegateDiv);
         }
+
+        function removeDelegate(button) {
+        // Get the delegate fields container
+        var delegateFieldsContainer = document.getElementById('delegateFields');
+
+        if (delegateFieldsContainer.children.length > 0) {
+            delegateFieldsContainer.removeChild(delegateFieldsContainer.lastChild);
+        }
+    }
+
     </script>
 </body>
 </html>

@@ -172,7 +172,7 @@ app.post('/register', [
         return res.render('error', { message: 'Error occurred during registration.' });
       }
 
-      res.redirect('/login');
+      res.redirect('/');
     });
   } catch (error) {
     console.error(error);
